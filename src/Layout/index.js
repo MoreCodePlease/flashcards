@@ -1,9 +1,12 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
-import Overview from "./Overview";
+import DeckList from "./DeckList";
 import Bread from "./Bread";
+import CreateDeck from "./CreateDeck";
+import { DeckView } from "./DeckView";
+import EditDeck from "./EditDeck";
 
 function Layout() {
   return (
@@ -14,7 +17,16 @@ function Layout() {
         <Bread />
         <Switch>
           <Route exact={true} path ='/'>
-            <Overview />
+            <DeckList />
+          </Route>
+          <Route  path ='/decks/new'>
+            <CreateDeck />
+          </Route>
+          <Route  path ='/decks/:deckId/edit'>
+            <EditDeck />
+          </Route>
+          <Route  path ='/decks/:deckId'>
+            <DeckView />
           </Route>
           <Route>
             <NotFound />

@@ -1,6 +1,7 @@
 
 
 export const CardContent = () => {
+    const [flipped, setFlipped] = useState(0);
 
     if (deck.cards.length <= 2) {
         return (
@@ -11,6 +12,8 @@ export const CardContent = () => {
             </>
         )
     }
+
+    
 }
 
 export default CardContent;

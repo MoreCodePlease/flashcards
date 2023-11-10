@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { readDeck } from "../utils/api";
 import NotFound from "./NotFound";
+import {Link} from "react-router-dom";
 
-export const DeckSummary = ({deck}) => {
+export const DeckListSummary = ({deck}) => {
     const [cards, setCards] = useState([]);
     const [error, setError] = useState(undefined);
     
@@ -13,12 +14,12 @@ export const DeckSummary = ({deck}) => {
                     <h2 className="">{deck.name}</h2><h6>{deck.cards.length} Cards</h6>
                     <p>{deck.description}</p>
                 </div>
-                <button>View</button>
+                <Link to={`/decks/${deck.id}`}><button>View</button></Link>
                 <button>Study</button>
-                <button><span class="bi bi-trash"></span></button>
+                <button><span>DELETE</span></button>
             </article>
         )
     }    
 }
 
-export default DeckSummary;
+export default DeckListSummary;

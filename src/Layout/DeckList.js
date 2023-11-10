@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from "react";
+import {Link} from 'react-router-dom';
 import { listDecks } from "../utils/api";
-import DeckSummary from "./DeckSummary";
+import DeckListSummary from "./DeckListSummary";
 
-export const DeckOverview = () => {
+export const DeckList = () => {
     const [decks, setDecks] = useState([]);
     const [error, setError] = useState(undefined);
     
@@ -14,15 +15,15 @@ export const DeckOverview = () => {
       if (error) {
         //return <ErrorMessage error={error} />;
       }
-      const list = decks.map((deck) => <DeckSummary key={deck.id} deck={deck} />);
+      const list = decks.map((deck) => <DeckListSummary key={deck.id} deck={deck} />);
       console.log(decks)
 
     return (
         <section className="">
-            <button>Create Deck</button>
+            <Link to='/decks/new'><button>Create Deck</button></Link>
             {list}
         </section>
     )
 }
 
-export default DeckOverview;
+export default DeckList;
