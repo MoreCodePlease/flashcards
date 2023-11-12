@@ -13,7 +13,7 @@ export const CreateDeck = () => {
         const abortController = new AbortController();
         listDecks(abortController.signal).then(setAllDecks).catch(setError);
         return () => abortController.abort();
-    }, []);
+    }, [history]);
     
     const handleSubmit = (event) => {
         event.preventDefault();

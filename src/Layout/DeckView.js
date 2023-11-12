@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { readDeck } from "../utils/api";
 import { Link, useParams, useHistory } from "react-router-dom";
+import DeckDel from "./DeckDel";
 
 
 export const DeckView = () => {
     const history = useHistory();
     const [error, setError] = useState(undefined);
     const deckId = useParams().deckId;
+    
     const [deck, setDeck] = useState({})
 
     useEffect(() => {
@@ -20,7 +22,7 @@ export const DeckView = () => {
           });
           return () => abortController.abort();
           
-    }, []);
+    }, [history]);
     //console.log(deck);
     const list = deck.cards?.map((card,index) => {
         return(
@@ -29,7 +31,7 @@ export const DeckView = () => {
                 <td>
                     <div>{card.back}</div>
                     <div>
-                        <button>Edit</button>
+                        <Link to={`/decks/${deckId}/cards/${card.id}/edit`}><button>Edit</button></Link>
                         <button>Delete</button>
                     </div>
                 </td>
@@ -45,8 +47,8 @@ export const DeckView = () => {
             <p>{deck.description}</p>
             <Link to={`/decks/${deckId}/edit`}><button>Edit</button></Link>
             <button>Study</button>
-            <button>Add Cards</button>
-            <button>Delete</button>
+            <Link to={`/decks/${deckId}/cards/new`}><button>Add Cards</button></Link>
+            <DeckDel />
         </div>
         <div>
             <h3>Cards</h3>

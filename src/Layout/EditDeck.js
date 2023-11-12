@@ -5,21 +5,23 @@ import { useParams, useHistory } from "react-router-dom";
 
 export const EditDeck = () => {
     const history = useHistory();
+    const deckId = useParams().deckId;
     const [thisDeck, setThisDeck] = useState([]);
+
     const [error, setError] = useState(undefined);
-    const initDeck = {name:'', desctiprion:''};
+    const initDeck = {id:deckId, name:'', desctiprion:''};
     const [formData, setFormData] = useState({...initDeck});
     
     useEffect(() => {
         const abortController = new AbortController();
-        readDeck(abortController.signal).then(setThisDeck).catch(setError);
+        readDeck(deckId, abortController.signal).then(setThisDeck).catch(setError);
         return () => abortController.abort();
-    }, []);
+    }, [history]);
     
     const handleSubmit = (event) => {
         event.preventDefault();
         updateDeck(formData);
-        history.push(`/decks/${thisDeck.id}`);
+        history.push(`/decks/${deckId}`);
     };
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});

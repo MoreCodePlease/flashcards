@@ -1,29 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { readDeck, createCard } from "../utils/api";
+import { readCard, updateCard } from "../utils/api";
 import { Link, useParams, useHistory } from "react-router-dom";
 
 
-export const AddCard = () => {
-    const initCard = {
-        front:'',
-        back:''};
+export const EditCard = () => {
+    const cardId = useParams().cardId;
     const deckId = useParams().deckId;
     const history = useHistory();
-    const [thisDeck, setThisDeck] = useState([]);
+    const [thisCard, setThisCard] = useState({});
     const [error, setError] = useState(undefined);
-    //const initDeck = {name:'', desctiprion:''};
-    const [formData, setFormData] = useState({...initCard});
     
     useEffect(() => {
         const abortController = new AbortController();
-        readDeck(abortController.signal).then(setThisDeck).catch(setError);
+        readCard(cardId, abortController.signal).then(setThisCard).catch(setError);
         return () => abortController.abort();
     }, [history]);
     
+    /*const initCard = {
+        id:useParams().cardId,
+        deckId:useParams().deckId,
+        front:'',
+        back:''};
+    */
+    
+    const [formData, setFormData] = useState({...thisCard});
+    
+    
+
+
+    
     const handleSubmit = (event) => {
         event.preventDefault();
-        createCard(deckId, formData);
-        setFormData({...initCard});
+        updateCard(formData);
+        history.push(`/decks/${deckId}`);
     };
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});
@@ -31,7 +40,7 @@ export const AddCard = () => {
 
     return (
     <>
-    <h2>Add Card</h2>
+    <h2>Edit Card</h2>
     <form onSubmit={handleSubmit}name="create">    
         <div class="form-group">
         <label for="cardFront">Front</label>
@@ -40,7 +49,7 @@ export const AddCard = () => {
                 name='front'
                 id="cardFront" 
                 rows="2" 
-                placeholder='Front side of card'
+                placeholder={thisCard.front}
                 onChange={handleChange}
                 value={formData.front}>
             </textarea>
@@ -52,7 +61,7 @@ export const AddCard = () => {
                 name='back'
                 id="cardBack" 
                 rows="2" 
-                placeholder='Back side of card'
+                placeholder={thisCard.back}
                 onChange={handleChange}
                 value={formData.back}>
             </textarea>
@@ -65,4 +74,4 @@ export const AddCard = () => {
 };
 
 
-export default AddCard;
+export default EditCard;
