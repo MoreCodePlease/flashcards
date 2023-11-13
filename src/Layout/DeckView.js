@@ -23,10 +23,12 @@ export const DeckView = () => {
           return () => abortController.abort();
           
     }, [history]);
-    //console.log(deck);
+    if (error) {
+        console.log(error);
+    }
     const list = deck.cards?.map((card,index) => {
         return(
-            <tr id={index}>
+            <tr key={index} id={index}>
                 <td>{card.front}</td>
                 <td>
                     <div>{card.back}</div>

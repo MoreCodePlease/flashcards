@@ -11,14 +11,12 @@ export const DeckList = () => {
     useEffect(() => {
       const abortController = new AbortController();
       listDecks(abortController.signal).then(setDecks).catch(setError);
-      return () => abortController.abort();
+      return () => abortController.abort(); 
     }, [history]);
     if (error) {
-      //return <ErrorMessage error={error} />;
+      //
     }
-    const list = decks.map((deck) => <DeckListSummary key={deck.id} deck={deck} />);
-    
-
+    const list = decks.map((deck) => <DeckListSummary key={deck.id} deck={deck} />);    
     return (
         <section className="">
             <Link to='/decks/new'><button>Create Deck</button></Link>

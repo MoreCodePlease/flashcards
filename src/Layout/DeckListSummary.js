@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { readDeck } from "../utils/api";
 import NotFound from "./NotFound";
 import {Link} from "react-router-dom";
+import DeckDel from "./DeckDel";
 
 export const DeckListSummary = ({deck}) => {
     const [cards, setCards] = useState([]);
@@ -15,8 +16,8 @@ export const DeckListSummary = ({deck}) => {
                     <p>{deck.description}</p>
                 </div>
                 <Link to={`/decks/${deck.id}`}><button>View</button></Link>
-                <button>Study</button>
-                <button><span>DELETE</span></button>
+                <Link to={`/decks/${deck.id}/study`}><button>Study</button></Link>
+                <DeckDel deckId={deck.id}/>
             </article>
         )
     }    

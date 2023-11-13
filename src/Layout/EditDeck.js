@@ -17,6 +17,9 @@ export const EditDeck = () => {
         readDeck(deckId, abortController.signal).then(setThisDeck).catch(setError);
         return () => abortController.abort();
     }, [history]);
+    if (error) {
+        console.log(error);
+    }
     
     const handleSubmit = (event) => {
         event.preventDefault();

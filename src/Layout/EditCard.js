@@ -15,19 +15,11 @@ export const EditCard = () => {
         readCard(cardId, abortController.signal).then(setThisCard).catch(setError);
         return () => abortController.abort();
     }, [history]);
-    
-    /*const initCard = {
-        id:useParams().cardId,
-        deckId:useParams().deckId,
-        front:'',
-        back:''};
-    */
+    if (error) {
+        console.log(error);
+      }  
     
     const [formData, setFormData] = useState({...thisCard});
-    
-    
-
-
     
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -42,8 +34,8 @@ export const EditCard = () => {
     <>
     <h2>Edit Card</h2>
     <form onSubmit={handleSubmit}name="create">    
-        <div class="form-group">
-        <label for="cardFront">Front</label>
+        <div className="form-group">
+        <label htmlFor="cardFront">Front</label>
             <textarea 
                 
                 name='front'
@@ -54,8 +46,8 @@ export const EditCard = () => {
                 value={formData.front}>
             </textarea>
         </div>
-        <div class="form-group">
-            <label for="cardBack">Back</label>
+        <div className="form-group">
+            <label htmlFor="cardBack">Back</label>
             <textarea 
                  
                 name='back'
@@ -66,8 +58,8 @@ export const EditCard = () => {
                 value={formData.back}>
             </textarea>
         </div>
-        <Link to ={`/decks/${deckId}`}><button type="cancel" class="btn btn-primary">Done</button></Link>
-        <button type="submit" class="btn btn-secondary">Save</button>
+        <Link to ={`/decks/${deckId}`}><button type="cancel" className="btn btn-primary">Done</button></Link>
+        <button type="submit" className="btn btn-secondary">Save</button>
     </form>
     </>
     );

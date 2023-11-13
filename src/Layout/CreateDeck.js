@@ -18,7 +18,7 @@ export const CreateDeck = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         createDeck(formData);
-        history.push(`/decks/${allDecks.length}`);
+        history.push(`/decks/${allDecks.length + 1}`);
     };
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});

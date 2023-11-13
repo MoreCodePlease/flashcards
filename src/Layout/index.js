@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch} from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import DeckList from "./DeckList";
@@ -9,6 +9,7 @@ import { DeckView } from "./DeckView";
 import EditDeck from "./EditDeck";
 import AddCard from "./AddCard";
 import EditCard from "./EditCard";
+import DeckStudy from "./DeckStudy";
 
 function Layout() {
   return (
@@ -16,7 +17,6 @@ function Layout() {
       <Header />
       <div className="container">
         {/* TODO: Implement the screen starting here */}
-        <Bread />
         <Switch>
           <Route exact={true} path ='/'>
             <DeckList />
@@ -30,13 +30,15 @@ function Layout() {
           <Route  path ='/decks/:deckId/edit'>
             <EditDeck />
           </Route>
+          <Route  path ='/decks/:deckId/study'>
+            <DeckStudy />
+          </Route>
           <Route  path ='/decks/:deckId/cards/new'>
             <AddCard />
           </Route>
           <Route  path ='/decks/:deckId'>
             <DeckView />
           </Route>
-          
           <Route>
             <NotFound />
           </Route>
