@@ -24,19 +24,19 @@ function Layout() {
             <DeckList />
           </Route>
           <Route  path ='/decks/new'>
-            <CreateDeck />
+            <EditDeck isNew={true} />
           </Route>
           <Route  path ='/decks/:deckId/cards/:cardId/edit'>
             <EditCard cardIsNew={false}/>
           </Route>
           <Route  path ='/decks/:deckId/edit'>
-            <EditDeck />
+            <EditDeck isNew={false}/>
           </Route>
           <Route  path ='/decks/:deckId/study'>
             <DeckStudy />
           </Route>
           <Route  path ='/decks/:deckId/cards/new'>
-            <AddCard />
+            <EditCard cardIsNew={true}/>
           </Route>
           <Route  path ='/decks/:deckId'>
             <DeckView />

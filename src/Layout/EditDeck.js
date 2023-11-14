@@ -1,21 +1,27 @@
 import React, { useState, useEffect } from "react";
-import { updateDeck, readDeck } from "../utils/api";
+import { updateDeck, readDeck, createDeck, listDecks } from "../utils/api";
 import { useParams, useHistory } from "react-router-dom";
 import Bread from "./Bread";
 
 
-export const EditDeck = () => {
+export const EditDeck = ({isNew}) => {
     const history = useHistory();
     const deckId = useParams().deckId;
     const [thisDeck, setThisDeck] = useState([]);
-
+    const [allDecks, setAllDecks] = useState([]);
     const [error, setError] = useState(undefined);
-    const initDeck = {id:deckId, name:'', desctiprion:''};
+    const initDeck = (isNew)?{name:'', desctiprion:''}:{id:deckId, name:'', desctiprion:''};
     const [formData, setFormData] = useState({...initDeck});
-    
     useEffect(() => {
         const abortController = new AbortController();
-        readDeck(deckId, abortController.signal).then(setThisDeck).catch(setError);
+        listDecks(abortController.signal).then(setAllDecks).catch(setError);
+        return () => abortController.abort();
+    }, [history]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        
+        if(!isNew) readDeck(deckId, abortController.signal).then(setThisDeck).catch(setError);
         return () => abortController.abort();
     }, [history]);
     if (error) {
@@ -24,8 +30,8 @@ export const EditDeck = () => {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        updateDeck(formData);
-        history.push(`/decks/${deckId}`);
+        (isNew)?createDeck(formData):updateDeck(formData);
+        (isNew)?history.push(`/decks/${allDecks.length + 1}`):history.push(`/decks/${deckId}`);
     };
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});
@@ -34,9 +40,9 @@ export const EditDeck = () => {
     return (
     <div>
         <Bread deck={thisDeck}/>
-    <h2>Edit Deck</h2>
+    {(isNew)?<h2>Create Deck</h2>:<h2>Edit Deck</h2>}
     <form onSubmit={handleSubmit}name="create">    
-        <div >
+        <div value={thisDeck.name}>{thisDeck.name}
             <label htmlFor="deckname">Name</label>
             <input 
                 type="text" 
@@ -47,7 +53,7 @@ export const EditDeck = () => {
                 value={formData.name}
             />
         </div>
-        <div >
+        <div >w
             <label htmlFor="deckdescription">Description</label>
             <textarea 
                 

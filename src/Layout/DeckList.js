@@ -8,7 +8,7 @@ export const DeckList = () => {
     const [error, setError] = useState(undefined);
     const history = useHistory();
     const path = useLocation();
-    console.log(path);
+    //console.log(path);
     useEffect(() => {
       const abortController = new AbortController();
       listDecks(abortController.signal).then(setDecks).catch(setError);
