@@ -2,14 +2,22 @@ import React, { useEffect, useState } from "react";
 import { readDeck } from "../utils/api";
 import { Link, useParams, useLocation, useHistory } from "react-router-dom";
 import Bread from "./Bread";
+import CardStudy from "./CardStudy";
 
 export const DeckStudy = () => {
+    const initDeck = {
+        id:0,
+        name:'',
+        description:'',
+        cards:[]
+    };
+    const [deck, setDeck] = useState({...initDeck});
     const location = useLocation();
     const history = useHistory();
-    const foreignDeck = location.state?.foreignDeck;
-    const [deck, setDeck] = useState({...foreignDeck});
-    const [error, setError] = useState(undefined);
     const deckId = useParams().deckId;
+    const foreignDeck = location.state?.foreignDeck;
+    //setDeck({...foreignDeck});
+    const [error, setError] = useState(undefined);
     const initState = { id:1, side:'front'};
     const [cardState, setCardState] = useState({...initState});
     
@@ -25,6 +33,19 @@ export const DeckStudy = () => {
           return () => abortController.abort();
           
     }, [history]);
+    const flipHandler = (event) =>{
+        event.preventDefault();
+        (cardState.side === 'front')?setCardState({...cardState, side:'back'}):setCardState({...cardState, side:'front'});
+        console.log(cardState.side);
+    }
+    const nextHandler = (event) =>{
+        event.preventDefault();
+        const nextId = cardState.id + 1;
+        (cardState.id < deck.cards.length)?setCardState({side:'front', id:nextId}):setCardState({side:'front', id:1});
+        console.log(cardState.side);
+    }
+        
+
 
     if (deck.cards.length <= 2) {
         return (
@@ -46,8 +67,10 @@ export const DeckStudy = () => {
             <h4>Card {cardState.id} of {deck.cards.length}</h4>
         </div>
         <div>
-            
+            <CardStudy deck={deck} cardState={cardState}/>  
         </div>
+        <button onClick={flipHandler}>Flip</button>
+        {(cardState.side == 'back')?<button onClick={nextHandler}>Next</button>:<div></div>}
     </div>)
 }
 export default DeckStudy;

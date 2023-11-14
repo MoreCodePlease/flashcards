@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { createCard, readCard, readDeck, updateCard } from "../utils/api";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import Bread from "./Bread";
 
 
-export const EditCard = ({cardIsNew = false}) => {
+export const EditCard = ({cardIsNew}) => {
+    const initCard = {
+        front:'',
+        back:''};
     const cardId = useParams().cardId;
-    const deckId = useParams().deckId;
     const history = useHistory();
+    const location = useLocation();
+    const deckId = useParams().deckId;
     const [deck,setDeck] = useState({});
-    const [thisCard, setThisCard] = useState({});
+    const [thisCard, setThisCard] = useState({...initCard});
     const [error, setError] = useState(undefined);
-
+    
     useEffect(() => {
         const abortController = new AbortController();
         if(!cardIsNew) {
@@ -22,6 +26,8 @@ export const EditCard = ({cardIsNew = false}) => {
     if (error) {
         console.log(error);
     }  
+    const [formData, setFormData] = useState({...thisCard});
+    
     useEffect(() => {
         const abortController = new AbortController();
         readDeck(deckId, abortController.signal)
@@ -38,11 +44,11 @@ export const EditCard = ({cardIsNew = false}) => {
         console.log(error);
     }
     
-    const [formData, setFormData] = useState({...thisCard});
+    
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        (cardIsNew)?createCard():updateCard(formData);
+        (cardIsNew)?createCard(deckId, formData):updateCard(formData);
         (cardIsNew)?setFormData({front:'',back:''}):history.push(`/decks/${deckId}`);
     };
     const handleChange = ({target}) => {
@@ -54,26 +60,26 @@ export const EditCard = ({cardIsNew = false}) => {
         <Bread deck={deck} card={thisCard}/>
     {(cardIsNew)?<h2>Add Card</h2>:<h2>Edit Card</h2>}
     <form onSubmit={handleSubmit}name="create">    
-        <div className="form-group">
+        <div >
         <label htmlFor="cardFront">Front</label>
             <textarea 
                 
                 name='front'
                 id="cardFront" 
                 rows="2" 
-                placeholder={(cardIsNew)?'':thisCard.front}
+                placeholder={(cardIsNew)?'front':thisCard.front}
                 onChange={handleChange}
                 value={formData.front}>
             </textarea>
         </div>
-        <div className="form-group">
+        <div >
             <label htmlFor="cardBack">Back</label>
             <textarea 
                  
                 name='back'
                 id="cardBack" 
                 rows="2" 
-                placeholder={(cardIsNew)?'':thisCard.back}
+                placeholder={(cardIsNew)?'back':thisCard.back}
                 onChange={handleChange}
                 value={formData.back}>
             </textarea>

@@ -27,7 +27,7 @@ function Layout() {
             <CreateDeck />
           </Route>
           <Route  path ='/decks/:deckId/cards/:cardId/edit'>
-            <EditCard />
+            <EditCard cardIsNew={false}/>
           </Route>
           <Route  path ='/decks/:deckId/edit'>
             <EditDeck />
@@ -36,7 +36,7 @@ function Layout() {
             <DeckStudy />
           </Route>
           <Route  path ='/decks/:deckId/cards/new'>
-            <EditCard cardIsNew={true}/>
+            <AddCard />
           </Route>
           <Route  path ='/decks/:deckId'>
             <DeckView />

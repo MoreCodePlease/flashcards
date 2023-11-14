@@ -30,8 +30,8 @@ export const CreateDeck = () => {
         <Bread />
     <h2>Create Deck</h2>
     <form onSubmit={handleSubmit}name="create">    
-        <div class="form-group">
-            <label for="deckname">Name</label>
+        <div>
+            <label htmlFor="deckname">Name</label>
             <input 
                 type="text" 
                 name='name'
@@ -41,10 +41,9 @@ export const CreateDeck = () => {
                 value={formData.name}
             />
         </div>
-        <div class="form-group">
-            <label for="deckdescription">Description</label>
+        <div>
+            <label htmlFor="deckdescription">Description</label>
             <textarea 
-                class="" 
                 name='description'
                 id="deckdescription" 
                 rows="3" 
@@ -54,8 +53,8 @@ export const CreateDeck = () => {
                 
             </textarea>
         </div>
-        <button type="cancel" class="btn btn-primary">Cancel</button>
-        <button type="submit" class="btn btn-secondary">Submit</button>
+        <button type="cancel" >Cancel</button>
+        <button type="submit" >Submit</button>
     </form>
     </div>
     );
