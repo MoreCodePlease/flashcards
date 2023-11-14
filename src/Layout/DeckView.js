@@ -52,7 +52,7 @@ export const DeckView = () => {
             <h4>{deck.name}</h4>
             <p>{deck.description}</p>
             <Link to={`/decks/${deckId}/edit`}><button>Edit</button></Link>
-            <Link to={{pathname:`/decks/${deck.id}/study`, state:{foreignDeck:deck}}}><button>Study</button></Link>
+            <Link to={{pathname:`/decks/${deck.id}/study`}}><button>Study</button></Link>
             <Link to={`/decks/${deckId}/cards/new`}><button>Add Cards</button></Link>
             <DeckDel />
         </div>

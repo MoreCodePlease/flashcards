@@ -13,20 +13,24 @@ export const EditCard = ({cardIsNew}) => {
     const location = useLocation();
     const deckId = useParams().deckId;
     const [deck,setDeck] = useState({});
-    const [thisCard, setThisCard] = useState({...initCard});
+    const [thisCard, setThisCard] = useState({});
     const [error, setError] = useState(undefined);
-    
+    const [formData, setFormData] = useState({});
     useEffect(() => {
         const abortController = new AbortController();
-        if(!cardIsNew) {
-            readCard(cardId, abortController.signal).then(setThisCard).catch(setError);
+        if(cardIsNew == false) {
+            readCard(cardId, abortController.signal).then(setThisCard).catch(setError)
+        } else {
+            setThisCard({...initCard});
         }
         return () => abortController.abort();
     }, [history]);
     if (error) {
         console.log(error);
-    }  
-    const [formData, setFormData] = useState({...thisCard});
+    } 
+    useEffect(() => {
+        setFormData((!cardIsNew)?{...thisCard, front:'', back:''}:{...thisCard});
+    },[thisCard])
     
     useEffect(() => {
         const abortController = new AbortController();
@@ -44,12 +48,19 @@ export const EditCard = ({cardIsNew}) => {
         console.log(error);
     }
     
-    
-    
     const handleSubmit = (event) => {
         event.preventDefault();
-        (cardIsNew)?createCard(deckId, formData):updateCard(formData);
-        (cardIsNew)?setFormData({front:'',back:''}):history.push(`/decks/${deckId}`);
+        console.log(formData)
+        if(cardIsNew == true){
+            createCard(deckId, formData);
+            setFormData({front:'',back:''});
+            console.log('new');
+        } else{
+            updateCard(formData);
+            history.push(`/decks/${deckId}`);
+            console.log('edit');
+        }
+        ;
     };
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});

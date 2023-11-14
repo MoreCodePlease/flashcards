@@ -15,7 +15,7 @@ export const DeckStudy = () => {
     const location = useLocation();
     const history = useHistory();
     const deckId = useParams().deckId;
-    const foreignDeck = location.state?.foreignDeck;
+    //const foreignDeck = location.state?.foreignDeck;
     //setDeck({...foreignDeck});
     const [error, setError] = useState(undefined);
     const initState = { id:1, side:'front'};
