@@ -4,7 +4,6 @@ import DeckDel from "./DeckDel";
 
 export const CardStudy = ({deck, cardState}) => {
     const currentCard = deck.cards.filter((card) => card.id === cardState.id);
-    console.log (currentCard[0].front)
     if(deck) {
         return(
             <div >

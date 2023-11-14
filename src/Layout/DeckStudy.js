@@ -9,14 +9,13 @@ export const DeckStudy = () => {
         id:0,
         name:'',
         description:'',
-        cards:[]
+        cards:[{back:'',deckId:0,front:'',id:0}]
     };
     const [deck, setDeck] = useState({...initDeck});
+    const [thisDeck, setThisDeck] = useState({...initDeck});
     const location = useLocation();
     const history = useHistory();
     const deckId = useParams().deckId;
-    //const foreignDeck = location.state?.foreignDeck;
-    //setDeck({...foreignDeck});
     const [error, setError] = useState(undefined);
     const initState = { id:1, side:'front'};
     const [cardState, setCardState] = useState({...initState});
@@ -32,22 +31,23 @@ export const DeckStudy = () => {
           });
           return () => abortController.abort();
           
-    }, [history]);
+    }, []);
+    useEffect(() => {
+        setThisDeck({...deck});
+        //console.log(deck);
+    },[deck])
+
     const flipHandler = (event) =>{
         event.preventDefault();
         (cardState.side === 'front')?setCardState({...cardState, side:'back'}):setCardState({...cardState, side:'front'});
-        console.log(cardState.side);
     }
     const nextHandler = (event) =>{
         event.preventDefault();
         const nextId = cardState.id + 1;
-        (cardState.id < deck.cards.length)?setCardState({side:'front', id:nextId}):setCardState({side:'front', id:1});
-        console.log(cardState.side);
+        (cardState.id < thisDeck.cards.length)?setCardState({side:'front', id:nextId}):setCardState({side:'front', id:1});
     }
-        
 
-
-    if (deck.cards.length <= 2) {
+    if (thisDeck.cards.length <= 2) {
         return (
             <div>
                 <h3>Not enough cards.</h3>
@@ -64,10 +64,8 @@ export const DeckStudy = () => {
         </div>
         <h1>{deck.name}: Study</h1>
         <div>
-            <h4>Card {cardState.id} of {deck.cards.length}</h4>
-        </div>
-        <div>
-            <CardStudy deck={deck} cardState={cardState}/>  
+            <h4>Card {cardState.id} of {thisDeck.cards.length}</h4>
+            <CardStudy deck={thisDeck} cardState={cardState}/>  
         </div>
         <button onClick={flipHandler}>Flip</button>
         {(cardState.side == 'back')?<button onClick={nextHandler}>Next</button>:<div></div>}
