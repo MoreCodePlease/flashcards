@@ -3,11 +3,12 @@ import {Link} from "react-router-dom";
 import DeckDel from "./DeckDel";
 
 export const CardStudy = ({deck, cardState}) => {
-    const currentCard = deck.cards.filter((card) => card.id === cardState.id);
+    const currentCard = deck.cards[cardState.id]
+    console.log(currentCard);
     if(deck) {
         return(
             <div >
-                {(cardState.side === 'front')?<p>{currentCard[0].front}</p>:<p>{currentCard[0].back}</p>}
+                {(cardState.side === 'front')?<p>{currentCard.front}</p>:<p>{currentCard.back}</p>}
             </div>
         )
     }    

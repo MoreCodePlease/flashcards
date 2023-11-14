@@ -17,7 +17,7 @@ export const DeckStudy = () => {
     const history = useHistory();
     const deckId = useParams().deckId;
     const [error, setError] = useState(undefined);
-    const initState = { id:1, side:'front'};
+    const initState = { id:0, side:'front'};
     const [cardState, setCardState] = useState({...initState});
     
     useEffect(() => {
@@ -43,8 +43,15 @@ export const DeckStudy = () => {
     }
     const nextHandler = (event) =>{
         event.preventDefault();
-        const nextId = cardState.id + 1;
-        (cardState.id < thisDeck.cards.length)?setCardState({side:'front', id:nextId}):setCardState({side:'front', id:1});
+        console.log(cardState.id+1);
+        (cardState.id +1 < thisDeck.cards.length)?setCardState({side:'front', id:cardState.id + 1}):setCardState({side:'front', id:0}); 
+    }
+    const restartPrompt = () => {
+        if(window.confirm('Restart cards?\n'+'\n'+'Click "cancel" to return to the Home Page')== true) {
+            setCardState({side:'front', id:0});
+        } else {
+            history.push('/')
+        }
     }
 
     if (thisDeck.cards.length <= 2) {
@@ -64,11 +71,11 @@ export const DeckStudy = () => {
         </div>
         <h1>{deck.name}: Study</h1>
         <div>
-            <h4>Card {cardState.id} of {thisDeck.cards.length}</h4>
-            <CardStudy deck={thisDeck} cardState={cardState}/>  
+            <h4>Card {cardState.id + 1} of {thisDeck.cards.length}</h4>
+            {(cardState.side === 'front')?<p>{thisDeck.cards[cardState.id].front}</p>:<p>{thisDeck.cards[cardState.id].back}</p>}
         </div>
         <button onClick={flipHandler}>Flip</button>
-        {(cardState.side == 'back')?<button onClick={nextHandler}>Next</button>:<div></div>}
+        {(cardState.side == 'back')?<button onClick={(cardState.id + 1 >= thisDeck.cards.length)?restartPrompt:nextHandler}>Next</button>:<div></div>}
     </div>)
 }
 export default DeckStudy;
