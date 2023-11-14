@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch} from "react-router-dom";
+import { Route, Switch, useLocation} from "react-router-dom";
 import Header from "./Header";
 import NotFound from "./NotFound";
 import DeckList from "./DeckList";
@@ -12,6 +12,8 @@ import EditCard from "./EditCard";
 import DeckStudy from "./DeckStudy";
 
 function Layout() {
+  const pathArr = useLocation().pathname.split('/');
+  //console.log(pathArr);
   return (
     <>
       <Header />
@@ -34,7 +36,7 @@ function Layout() {
             <DeckStudy />
           </Route>
           <Route  path ='/decks/:deckId/cards/new'>
-            <AddCard />
+            <EditCard cardIsNew={true}/>
           </Route>
           <Route  path ='/decks/:deckId'>
             <DeckView />

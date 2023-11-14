@@ -16,7 +16,7 @@ export const DeckListSummary = ({deck}) => {
                     <p>{deck.description}</p>
                 </div>
                 <Link to={`/decks/${deck.id}`}><button>View</button></Link>
-                <Link to={`/decks/${deck.id}/study`}><button>Study</button></Link>
+                <Link to={{pathname:`/decks/${deck.id}/study`, state:{foreignDeck:deck}}}><button>Study</button></Link>
                 <DeckDel deckId={deck.id}/>
             </article>
         )

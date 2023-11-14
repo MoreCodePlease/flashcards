@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { readDeck } from "../utils/api";
-import { Link, useParams, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory,useLocation } from "react-router-dom";
 import DeckDel from "./DeckDel";
+import Bread from "./Bread";
 
 
 export const DeckView = () => {
     const history = useHistory();
     const [error, setError] = useState(undefined);
     const deckId = useParams().deckId;
-    
-    const [deck, setDeck] = useState({})
+    const [deck, setDeck] = useState({});
+    const path = useLocation();
+    //console.log(path);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -40,15 +42,17 @@ export const DeckView = () => {
             </tr>
         ) 
     })
-
-
+    //console.log(list)
   return (
     <section>
+        <div>
+            <Bread deck={deck}/>
+        </div>
         <div>
             <h4>{deck.name}</h4>
             <p>{deck.description}</p>
             <Link to={`/decks/${deckId}/edit`}><button>Edit</button></Link>
-            <button>Study</button>
+            <Link to={{pathname:`/decks/${deck.id}/study`, state:{foreignDeck:deck}}}><button>Study</button></Link>
             <Link to={`/decks/${deckId}/cards/new`}><button>Add Cards</button></Link>
             <DeckDel />
         </div>

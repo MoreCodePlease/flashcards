@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { updateDeck, readDeck } from "../utils/api";
 import { useParams, useHistory } from "react-router-dom";
+import Bread from "./Bread";
 
 
 export const EditDeck = () => {
@@ -31,7 +32,8 @@ export const EditDeck = () => {
     };
 
     return (
-    <>
+    <div>
+        <Bread deck={thisDeck}/>
     <h2>Edit Deck</h2>
     <form onSubmit={handleSubmit}name="create">    
         <div class="form-group">
@@ -61,7 +63,7 @@ export const EditDeck = () => {
         <button type="cancel" class="btn btn-primary">Cancel</button>
         <button type="submit" class="btn btn-secondary">Submit</button>
     </form>
-    </>
+    </div>
     );
 };
 
