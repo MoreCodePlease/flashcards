@@ -15,7 +15,7 @@ function Layout() {
   const pathArr = useLocation().pathname.split('/');
   //console.log(pathArr);
   return (
-    <>
+    <div>
       <Header />
       <div className="container">
         {/* TODO: Implement the screen starting here */}
@@ -46,7 +46,7 @@ function Layout() {
           </Route>
         </Switch>
       </div>
-    </>
+    </div>
   );
 }
 

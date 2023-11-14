@@ -72,9 +72,8 @@ export const EditCard = ({cardIsNew}) => {
     {(cardIsNew)?<h2>Add Card</h2>:<h2>Edit Card</h2>}
     <form onSubmit={handleSubmit}name="create">    
         <div >
-        <label htmlFor="cardFront">Front</label>
+        <label htmlFor="cardFront">{`Front`}</label>
             <textarea 
-                
                 name='front'
                 id="cardFront" 
                 rows="2" 

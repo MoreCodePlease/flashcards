@@ -6,17 +6,24 @@ import Bread from "./Bread";
 
 
 export const DeckView = () => {
+    const initDeck = {
+        id:0,
+        name:'',
+        description:'',
+        cards:[{back:'',deckId:0,front:'',id:0}]
+    };
     const history = useHistory();
     const [error, setError] = useState(undefined);
     const deckId = useParams().deckId;
-    const [deck, setDeck] = useState({});
+    const [deck, setDeck] = useState({...initDeck});
+    const [thisDeck, setThisDeck] = useState({...initDeck});
     const path = useLocation();
     //console.log(path);
 
     useEffect(() => {
         const abortController = new AbortController();
         readDeck(deckId, abortController.signal)
-            .then(setDeck)
+            .then(setThisDeck)
             .catch((error) => {
                 if (error.name !== "AbortError") {
                 setError(error);
@@ -28,7 +35,10 @@ export const DeckView = () => {
     if (error) {
         console.log(error);
     }
-    const list = deck.cards?.map((card,index) => {
+    useEffect(() => {
+        setDeck(thisDeck);
+    },[thisDeck])
+    const list = deck.cards.map((card,index) => {
         return(
             <tr key={index} id={index}>
                 <td>{card.front}</td>

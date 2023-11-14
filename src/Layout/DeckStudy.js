@@ -57,6 +57,7 @@ export const DeckStudy = () => {
     if (thisDeck.cards.length <= 2) {
         return (
             <div>
+                <Bread deck={deck}/>
                 <h3>Not enough cards.</h3>
                 <p>You need at least 3 cards to study. There are {} cards in this deck.</p>
                 <Link to={`/decks/${deckId}/cards/new`}><button>Add Cards</button></Link>
@@ -66,9 +67,7 @@ export const DeckStudy = () => {
 
     return(
     <div>
-        <div>
-            <Bread deck={deck}/>
-        </div>
+        <Bread deck={deck}/>
         <h1>{deck.name}: Study</h1>
         <div>
             <h4>Card {cardState.id + 1} of {thisDeck.cards.length}</h4>

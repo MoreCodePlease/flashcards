@@ -15,9 +15,7 @@ export const DeckList = () => {
       return () => abortController.abort(); 
     }, [history]);
     if (error) {
-      //
     }
-    console.log(decks)
     const list = decks.map((deck) => <DeckListSummary key={deck.id} deck={deck} />);    
     return (
         <section className="">
