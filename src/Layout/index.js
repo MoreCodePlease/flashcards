@@ -4,8 +4,8 @@ import Header from "./Header";
 import NotFound from "./NotFound";
 import DeckList from "./DeckList";
 import { DeckView } from "./DeckView";
-import EditDeckT from "./EditDeckT";
-import EditCardT from "./EditCardT";
+import EditDeck from "./EditDeck";
+import EditCard from "./EditCard";
 import DeckStudy from "./DeckStudy";
 
 function Layout() {
@@ -21,19 +21,19 @@ function Layout() {
             <DeckList />
           </Route>
           <Route  path ='/decks/new'>
-            <EditDeckT isNew={true} />
+            <EditDeck isNew={true} />
           </Route>
           <Route  path ='/decks/:deckId/cards/:cardId/edit'>
-            <EditCardT isNew={false}/>
+            <EditCard isNew={false}/>
           </Route>
           <Route  path ='/decks/:deckId/edit'>
-            <EditDeckT isNew={false}/>
+            <EditDeck isNew={false}/>
           </Route>
           <Route  path ='/decks/:deckId/study'>
             <DeckStudy />
           </Route>
           <Route  path ='/decks/:deckId/cards/new'>
-            <EditCardT isNew={true}/>
+            <EditCard isNew={true}/>
           </Route>
           <Route  path ='/decks/:deckId'>
             <DeckView />
