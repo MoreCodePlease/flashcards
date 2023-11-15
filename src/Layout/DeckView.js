@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { readDeck } from "../utils/api";
 import { Link, useParams, useHistory,useLocation } from "react-router-dom";
-import DeckDel from "./DeckDel";
+import { DelHandler } from "./DelHandler";
 import Bread from "./Bread";
 
 
@@ -46,7 +46,7 @@ export const DeckView = () => {
                     <div>{card.back}</div>
                     <div>
                         <Link to={`/decks/${deckId}/cards/${card.id}/edit`}><button>Edit</button></Link>
-                        <button>Delete</button>
+                        <DelHandler cardId={card.id}/>
                     </div>
                 </td>
             </tr>
@@ -64,7 +64,7 @@ export const DeckView = () => {
             <Link to={`/decks/${deckId}/edit`}><button>Edit</button></Link>
             <Link to={{pathname:`/decks/${deck.id}/study`}}><button>Study</button></Link>
             <Link to={`/decks/${deckId}/cards/new`}><button>Add Cards</button></Link>
-            <DeckDel />
+            <DelHandler deckId={deck.id}/>
         </div>
         <div>
             <h3>Cards</h3>

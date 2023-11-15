@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { readDeck } from "../utils/api";
 import NotFound from "./NotFound";
 import {Link} from "react-router-dom";
-import DeckDel from "./DeckDel";
+import { DelHandler } from "./DelHandler";
 
 export const DeckListSummary = ({deck}) => {
     const [cards, setCards] = useState([]);
@@ -17,7 +17,7 @@ export const DeckListSummary = ({deck}) => {
                 </div>
                 <Link to={`/decks/${deck.id}`}><button>View</button></Link>
                 <Link to={{pathname:`/decks/${deck.id}/study`}}><button>Study</button></Link>
-                <DeckDel deckId={deck.id}/>
+                <DelHandler deckId={deck.id}/>
             </article>
         )
     }    

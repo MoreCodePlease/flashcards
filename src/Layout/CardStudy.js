@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
-import DeckDel from "./DeckDel";
+import DeckDel from "./DelHandler";
 
 export const CardStudy = ({deck, cardState}) => {
     const currentCard = deck.cards[cardState.id]
