@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { updateDeck, readDeck, createDeck, listDecks } from "../utils/api";
 import { useParams, useHistory } from "react-router-dom";
 import Bread from "./Bread";
+import EditDeckNavig from "./EditDeckNavig";
 
 
 export const EditDeck = ({isNew}) => {
@@ -30,35 +31,39 @@ export const EditDeck = ({isNew}) => {
     
     const handleSubmit = (event) => {
         event.preventDefault();
-        (isNew)?createDeck(formData):updateDeck(formData);
-        (isNew)?history.push(`/decks/${allDecks.length + 1}`):history.push(`/decks/${deckId}`);
+        if(isNew){
+            createDeck(formData);
+            history.push(`/decks/${allDecks.length + 1}`);
+        } else {
+            updateDeck(formData);
+            history.push(`/decks/${deckId}`);
+        }
     };
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});
     };
-
+//<Bread deck={thisDeck}/>
     return (
     <div>
-        <Bread deck={thisDeck}/>
+        <EditDeckNavig deck={thisDeck} />
     {(isNew)?<h2>Create Deck</h2>:<h2>Edit Deck</h2>}
     <form onSubmit={handleSubmit}name="create">    
         <div value={thisDeck.name}>{thisDeck.name}
-            <label htmlFor="deckname">Name</label>
+            <label htmlFor="name">Name</label>
             <input 
                 type="text" 
                 name='name'
-                id="deckname" 
+ 
                 placeholder={thisDeck.name}
                 onChange={handleChange}
                 value={formData.name}
             />
         </div>
         <div >w
-            <label htmlFor="deckdescription">Description</label>
+            <label htmlFor="description">Description</label>
             <textarea 
                 
                 name='description'
-                id="deckdescription" 
                 rows="3" 
                 placeholder={thisDeck.description}
                 onChange={handleChange}

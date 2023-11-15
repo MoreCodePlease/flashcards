@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { createCard, readCard, readDeck, updateCard } from "../utils/api";
 import { Link, useParams, useHistory, useLocation } from "react-router-dom";
 import Bread from "./Bread";
+import EditCardNavig from "./EditCardNavig";
 
 
-export const EditCard = ({cardIsNew}) => {
+export const EditCard = ({isNew}) => {
     const initCard = {
         front:'',
         back:''};
@@ -18,7 +19,7 @@ export const EditCard = ({cardIsNew}) => {
     const [formData, setFormData] = useState({});
     useEffect(() => {
         const abortController = new AbortController();
-        if(cardIsNew == false) {
+        if(isNew == false) {
             readCard(cardId, abortController.signal).then(setThisCard).catch(setError)
         } else {
             setThisCard({...initCard});
@@ -29,7 +30,7 @@ export const EditCard = ({cardIsNew}) => {
         console.log(error);
     } 
     useEffect(() => {
-        setFormData((!cardIsNew)?{...thisCard, front:'', back:''}:{...thisCard});
+        setFormData((!isNew)?{...thisCard, front:'', back:''}:{...thisCard});
     },[thisCard])
     
     useEffect(() => {
@@ -51,7 +52,7 @@ export const EditCard = ({cardIsNew}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(formData)
-        if(cardIsNew == true){
+        if(isNew == true){
             createCard(deckId, formData);
             setFormData({front:'',back:''});
             console.log('new');
@@ -65,11 +66,12 @@ export const EditCard = ({cardIsNew}) => {
     const handleChange = ({target}) => {
         setFormData({...formData, [target.name]: target.value});
     };
-
+    //<Bread deck={deck} card={thisCard}/>
     return (
     <div>
-        <Bread deck={deck} card={thisCard}/>
-    {(cardIsNew)?<h2>Add Card</h2>:<h2>Edit Card</h2>}
+        
+        <EditCardNavig isNew={isNew} cardId={cardId} deck={deck}/>
+    {(isNew)?<h2>Add Card</h2>:<h2>Edit Card</h2>}
     <form onSubmit={handleSubmit}name="create">    
         <div >
         <label htmlFor="cardFront">{`Front`}</label>
@@ -77,7 +79,6 @@ export const EditCard = ({cardIsNew}) => {
                 name='front'
                 id="cardFront" 
                 rows="2" 
-                placeholder={(cardIsNew)?'front':thisCard.front}
                 onChange={handleChange}
                 value={formData.front}>
             </textarea>
@@ -89,7 +90,6 @@ export const EditCard = ({cardIsNew}) => {
                 name='back'
                 id="cardBack" 
                 rows="2" 
-                placeholder={(cardIsNew)?'back':thisCard.back}
                 onChange={handleChange}
                 value={formData.back}>
             </textarea>
