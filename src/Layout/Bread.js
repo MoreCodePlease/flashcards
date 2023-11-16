@@ -12,13 +12,19 @@ export const Bread =({deck, card}) => {
     //if(deck) console.log(deck);
     //if(card) console.log(card);
     //if(deckId) console.log(deckId.cardId);
-    
+    console.log(pathArr)
     if(path.includes('decks')) {
         crumb.push({title:'Home', paths:'/'});
     }
     if(parseFloat(pathArr[2]) == deckId.deckId) {
-        crumb.push({title:deck.name, paths:`/decks/${deck.id}`});
+        if (pathArr.length == 3){
+            crumb.push({title:deck.name, paths:0});
+        } else{
+            crumb.push({title:deck.name, paths:`/decks/${deck.id}`});
+        }
+        
     } else if (pathArr[2] === 'new'){
+        
         crumb.push({title:'New', paths:0});
     }
     if(pathArr[3] === 'edit'){
