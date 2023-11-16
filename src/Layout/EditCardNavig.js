@@ -4,11 +4,7 @@ function EditDeckNavig({deck,cardId, isNew}) {
       return (
           <div className="container">
               <nav>
-                  <ol>
-                      <li><a href="/">Home</a></li>
-                      <li><a href={`/decks/${deck.id}`}>{deck.name}</a></li>
-                      <li>Add Card {cardId}</li>
-                  </ol>
+              <p><span><a href="/">Home</a></span> / <span><a href={`/decks/${deck.id}`}>{deck.name}</a></span> / Add Card</p>
               </nav>
           </div>
       );
@@ -16,11 +12,7 @@ function EditDeckNavig({deck,cardId, isNew}) {
       return (
           <div className="container">
               <nav>
-                  <ol>
-                      <li><a href="/">Home</a></li>
-                      <li><a href={`/decks/${deck.id}`}>{deck.name}</a></li>
-                      <li>Edit Card {cardId}</li>
-                  </ol>
+                <p><span><a href="/">Home</a></span> / <span><a href={`/decks/${deck.id}`}>{deck.name}</a></span> / Edit Card {cardId}</p>
               </nav>
           </div>
       );

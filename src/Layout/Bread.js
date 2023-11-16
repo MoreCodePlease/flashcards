@@ -36,15 +36,15 @@ export const Bread =({deck, card}) => {
 const crumbs = crumb.map(({title, paths}, key) =>{
     
     if(paths != 0) {
-        return (<li key={key}><Link  to={paths}> {title} </Link></li>);
+        return (<span key={key}><Link  to={paths}>{title}</Link>{(key + 1 == crumb.length)? '':' / '}</span>);
     }
-        return (<li key={key}> {title} </li>);
+        return (<span key={key}>{title}</span>);
     
 })
 
 //console.log(crumbs);
 return (
-    <nav><ol>{crumbs}</ol></nav>
+    <nav><p></p>{crumbs}</nav>
 )
 
 }

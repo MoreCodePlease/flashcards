@@ -57,6 +57,7 @@ export const DeckStudy = () => {
     if (thisDeck.cards.length <= 2) {
         return (
             <div>
+                <h1>{deck.name}: Study</h1>
                 <Bread deck={deck}/>
                 <h3>Not enough cards.</h3>
                 <p>You need at least 3 cards to study. There are {} cards in this deck.</p>

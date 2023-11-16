@@ -15,14 +15,14 @@ export const DeckList = () => {
       return () => abortController.abort(); 
     }, [history]);
     if (error) {
-    }
+    };
     const list = decks.map((deck) => <DeckListSummary key={deck.id} deck={deck} />);    
     return (
         <section className="">
             <Link to='/decks/new'><button>Create Deck</button></Link>
             {list}
         </section>
-    )
+    );
 }
 
 export default DeckList;

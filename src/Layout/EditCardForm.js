@@ -25,7 +25,7 @@ function EditCardForm({card, isNew}) {
     const handleSubmit = (event) => {
         event.preventDefault();
         if(isNew){
-          createCard(formData).then(setCurrent).catch(setError);
+          createCard(deckId, formData).then(setCurrent).catch(setError);
           setFormData({...initCard});
         } else {
           updateCard(formData).then(setCurrent).catch(setError);

@@ -12,52 +12,8 @@
     },
     {
       "name": "test",
-      "desctiprion": "",
       "description": "test",
       "id": 3
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 4
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 5
-    },
-    {
-      "name": "aa",
-      "id": 6
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 7
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 8
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 9
-    },
-    {
-      "name": "aa",
-      "description": "aa",
-      "id": 10
-    },
-    {
-      "name": "ss",
-      "description": "ss",
-      "id": 11
-    },
-    {
-      "name": "ss",
-      "id": 12
     }
   ],
   "cards": [
@@ -105,22 +61,10 @@
       "deckId": 1
     },
     {
-      "front": "a",
-      "back": "a",
+      "front": "test",
+      "back": "test",
       "deckId": 3,
       "id": 10
-    },
-    {
-      "front": "b",
-      "back": "b",
-      "deckId": 3,
-      "id": 11
-    },
-    {
-      "front": "c",
-      "back": "c",
-      "deckId": 3,
-      "id": 12
     }
   ]
 }
